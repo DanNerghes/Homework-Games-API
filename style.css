@@ -1,0 +1,60 @@
+body {
+    margin: 0;
+    color: #fff;
+    background-color: #3e3c94;
+}
+
+.banner {
+    margin: 0;
+    padding: 0;
+}
+
+.hide{
+    display: none;
+}
+
+#preloader {
+    text-align: center;
+}
+
+
+.game-container {
+    overflow: hidden;
+    max-width: 50%;
+    margin: 20px auto 20px auto;
+    padding:20px;
+    border-radius: 15px;
+    box-shadow: 5px 5px rgb(0, 0, 0);
+    background-color: #090b72;
+    color: #fff;
+    cursor: pointer;
+}
+
+.article-image {
+    max-height: 200px;
+    margin: 10px;
+    float: left;
+    vertical-align: middle;
+}
+
+.article-description {
+    /* display: inline; */
+}
+
+.about-container {
+    display: inline;
+}
+
+#postForm {
+    text-align: center;
+}
+
+.postingInput {
+    margin: 20px;
+    font-size: 20px;
+}
+
+.postingInput input {
+    width: 350px;
+    height: 20px;
+}

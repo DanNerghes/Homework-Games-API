@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Homwwork - Games API</title>
+    <link rel="stylesheet" href="style.css">
+    <script src="main.js" defer></script>
+</head>
+<body>
+    <header>
+        <img class="banner" src="https://aspgamingcheats.files.wordpress.com/2013/05/videogame_collage_blues_by_rodskikun.jpg" width="100%" height="200px" alt="">
+        <nav>
+            <ul>
+                <li><a href="">HOME</a></li>
+                <li><a id="postLink" href="">Post</a></li>
+            </ul>
+        </nav>
+    </header>
+    <main>
+        <div id="preloader" class="hide">
+            <h1>Loading...</h1>
+        </div>
+        <div id="game-collection"></div>
+        <div id="selected-game"></div>
+        <form id="postForm" action="">
+            <h1>Add youre game here!!!</h1>
+            <div class="postingInput">
+                <label for="title">Title:</label><br>
+                <input type="text" name="title" id="title"><br>
+            </div>
+            <div class="postingInput">
+                <label for="genre">Genre:</label><br>
+                <input type="text" name="genre" id="genre"><br>
+            </div>
+            <div class="postingInput">
+                <label for="publisher">Publisher:</label><br>
+                <input type="text" name="publisher" id="publisher"><br>
+            </div>
+            <div class="postingInput">
+                <label for="imegeUrl">Image (URL):</label><br>
+                <input type="text" name="imageUrl" id="imageUrl"><br>
+            </div>
+            <div>
+                <label for="description">Description: </label><br>
+                <textarea name="description" id="description" cols="60" rows="10"></textarea>
+            </div>
+            <button id="postButton" type="submit">Post</button>
+        </form>
+    </main>
+    <footer>
+
+    </footer>
+</body>
+</html>
