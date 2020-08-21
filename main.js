@@ -142,6 +142,7 @@ function updateItem(selected, updateLink, deleteButton) {
     showTheForm(event);
     updateLink.classList.add("hide");   
     deleteButton.classList.add("hide");
+    postLink.classList.add("hide");
     postButton.classList.add("hide");
     updateButton.innerText = "Update";
     updateButton.setAttribute("data-update", selected._id);
