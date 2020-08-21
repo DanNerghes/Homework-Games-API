@@ -8,6 +8,35 @@
     padding: 0;
 }
 
+#primary-navigation {
+    width: 100%;
+    height: 30px;
+    background-color: #090b72;
+}
+
+#primary-navigation ul {
+    list-style: none;
+}
+
+#primary-navigation ul li {
+    display: inline-block;
+    line-height: 100%;
+}
+
+#primary-navigation ul li a {
+    text-decoration: none;
+    font-size: 20px;
+    line-height: 30px;
+    padding: 10px;
+    color: #fff;
+}
+
+#primary-navigation ul li a:hover {
+    color: #222;
+    background-color: #f8fc1af1;
+    border-radius: 10px;
+}
+
 .hide{
     display: none;
 }
@@ -31,7 +60,7 @@
     text-overflow: ellipsis;
     -webkit-line-clamp: 4;
     -webkit-box-orient: vertical;  
-  }
+}
 
 .article-image {
     max-height: 200px;
