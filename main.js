@@ -35,7 +35,7 @@ function getAllGames() {
 }
 
 function buildThePreview(data) {
-    data.forEach((element, index )=> {
+    data.forEach((element, index ) => {
         const gameContainer = document.createElement("article");
         gameContainer.setAttribute("id", element._id);
         gameContainer.classList.add("game-container");
@@ -117,35 +117,37 @@ function drawChosenOption(selected) {
     deleteButton.addEventListener("click", removeItem);
     
     const updateLink = document.createElement("button");
-    updateLink.innerText = "Update";
+    updateLink.innerText = "Edit";
     chosenGame.append(updateLink);
-    updateLink.addEventListener("click", updateItem);
+    updateLink.addEventListener("click", function() {
+        updateItem(selected, updateLink, deleteButton)
+    });
 
     selectedGame.append(chosenGame);
 
-    preloader.classList.add("hide");
     selectedGame.classList.remove("hide");
+    preloader.classList.add("hide");
+}
 
-    function updateItem(event) {
-        const postTitle = document.getElementById("postTitle");
+function updateItem(selected, updateLink, deleteButton) {
+    const postTitle = document.getElementById("postTitle");
+    const updateButton = document.createElement("button");
 
-        titleToPost.placeholder = selected.title;
-        genreToPost.placeholder = selected.genre;
-        publisherToPost.placeholder = selected.publisher;
-        imageUrlToPost.placeholder = selected.imageUrl;
-        descriptionToPost.placeholder = selected.description;
-        postTitle.classList.add("hide");
-        showTheForm(event);
-        updateLink.classList.add("hide");   
-        deleteButton.classList.add("hide");
-        postButton.classList.add("hide");
-        let updateButton = document.createElement("button");
-        updateButton.innerText = "Update";
-        updateButton.setAttribute("data-update", selected._id);
+    titleToPost.placeholder = selected.title;
+    genreToPost.placeholder = selected.genre;
+    publisherToPost.placeholder = selected.publisher;
+    imageUrlToPost.placeholder = selected.imageUrl;
+    descriptionToPost.placeholder = selected.description;
+    postTitle.classList.add("hide");
+    showTheForm(event);
+    updateLink.classList.add("hide");   
+    deleteButton.classList.add("hide");
+    postButton.classList.add("hide");
+    updateButton.innerText = "Update";
+    updateButton.setAttribute("data-update", selected._id);
 
-        postForm.append(updateButton);
-        updateButton.addEventListener("click", putUpdate);
-    }
+    postForm.append(updateButton);
+    updateButton.addEventListener("click", putUpdate);
 }
 
 function removeItem(event) {
