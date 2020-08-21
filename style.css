@@ -71,7 +71,3 @@ body {
     height: 20px;
 }
 
-#game-collection {
-    display: flex;
-    flex-wrap: wrap;
-}
