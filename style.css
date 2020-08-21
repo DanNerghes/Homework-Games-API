@@ -32,8 +32,9 @@
 }
 
 #primary-navigation ul li a:hover {
+    font-weight: 900;
     color: #222;
-    background-color: #f8fc1af1;
+    background-color: #fff;
     border-radius: 10px;
 }
 
