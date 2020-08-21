@@ -82,7 +82,6 @@ function getGameDetails(arrData, i) {
 }
 
 function drawChosenOption(selected) {
-    allGanes.innerText = ""
     const chosenGame = document.createElement("div");
 
     const chosenGameTitle = document.createElement('h1');
@@ -117,10 +116,10 @@ function drawChosenOption(selected) {
     chosenGame.append(deleteButton)
     deleteButton.addEventListener("click", removeItem)
     
-    const updateButton = document.createElement("button")
-    updateButton.innerText = "Update"
-    chosenGame.append(updateButton)
-    updateButton.addEventListener("click", updateItem)
+    const updateLink = document.createElement("button")
+    updateLink.innerText = "Update"
+    chosenGame.append(updateLink)
+    updateLink.addEventListener("click", updateItem)
 
     selectedGame.append(chosenGame)
 
@@ -128,21 +127,24 @@ function drawChosenOption(selected) {
     selectedGame.classList.remove("hide");
 
     function updateItem(event) {
+        const postTitle = document.getElementById("postTitle");
+
         titleToPost.placeholder = selected.title;
         genreToPost.placeholder = selected.genre;
         publisherToPost.placeholder = selected.publisher;
         imageUrlToPost.placeholder = selected.imageUrl;
         descriptionToPost.placeholder = selected.description;
+        postTitle.classList.add("hide");
         showTheForm(event);
-        updateButton.classList.add("hide");   
+        updateLink.classList.add("hide");   
         deleteButton.classList.add("hide");
         postButton.classList.add("hide")
-        let sendUpdate = document.createElement("button");
-        sendUpdate.innerText = "Update";
-        sendUpdate.setAttribute("data-update", selected._id)
+        let updateButton = document.createElement("button");
+        updateButton.innerText = "Update";
+        updateButton.setAttribute("data-update", selected._id)
 
-        postForm.append(sendUpdate)
-        postForm.addEventListener("click", putUpdate)
+        postForm.append(updateButton)
+        updateButton.addEventListener("click", putUpdate)
     }
 }
 
@@ -179,7 +181,6 @@ function putUpdate(event) {
     console.log(event.target.dataset.update);
     let updateId = event.target.dataset.update 
 
-    event.preventDefault();
     fetch(url + updateId, {
         method: 'PUT',
         body: JSON.stringify({
