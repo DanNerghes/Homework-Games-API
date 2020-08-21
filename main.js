@@ -1,32 +1,32 @@
-const url = "https://games-world.herokuapp.com/games/"
-const allGanes = document.getElementById('game-collection')
-const selectedGame = document.getElementById('selected-game')
-const preloader = document.getElementById('preloader')
-const postLink = document.getElementById("postLink")
-const postButton = document.getElementById("postButton")
-const postForm = document.getElementById("postForm")
-const titleToPost = document.getElementById("title")
-const genreToPost = document.getElementById("genre")
-const publisherToPost = document.getElementById("publisher")
-const imageUrlToPost = document.getElementById("imageUrl")
-const descriptionToPost = document.getElementById("description")
+const url = "https://games-world.herokuapp.com/games/";
+const allGanes = document.getElementById('game-collection');
+const selectedGame = document.getElementById('selected-game');
+const preloader = document.getElementById('preloader');
+const postLink = document.getElementById("postLink");
+const postButton = document.getElementById("postButton");
+const postForm = document.getElementById("postForm");
+const titleToPost = document.getElementById("title");
+const genreToPost = document.getElementById("genre");
+const publisherToPost = document.getElementById("publisher");
+const imageUrlToPost = document.getElementById("imageUrl");
+const descriptionToPost = document.getElementById("description");
 
-getAllGames()
+getAllGames();
 
 postLink.addEventListener("click", showTheForm);
-postButton.addEventListener("click", postAnItem)
+postButton.addEventListener("click", postAnItem);
 
 function showTheForm(event){
     event.preventDefault();
     allGanes.classList.add("hide");
     selectedGame.classList.add("hide");
-    postForm.classList.remove("hide")
+    postForm.classList.remove("hide");
 }
 
 function getAllGames() {
     preloader.classList.remove("hide");
     allGanes.classList.add("hide");
-    postForm.classList.add("hide")
+    postForm.classList.add("hide");
     selectedGame.innerHTML = "";
 
     fetch(url)
@@ -36,35 +36,35 @@ function getAllGames() {
 
 function buildThePreview(data) {
     data.forEach((element, index )=> {
-        const gameContainer = document.createElement("article")
-        gameContainer.setAttribute("id", element._id)
-        gameContainer.classList.add("game-container")
+        const gameContainer = document.createElement("article");
+        gameContainer.setAttribute("id", element._id);
+        gameContainer.classList.add("game-container");
 
         const aboutContainer = document.createElement("div");
-        aboutContainer.classList.add("about-container")
+        aboutContainer.classList.add("about-container");
 
         const articleTitle = document.createElement("h2");
         articleTitle.innerHTML = element.title;
-        articleTitle.classList.add("article-title")
-        aboutContainer.append(articleTitle)
+        articleTitle.classList.add("article-title");
+        aboutContainer.append(articleTitle);
         
         const articleDescription = document.createElement("p");
-        articleDescription.innerText = element.description
-        articleDescription.classList.add("article-description")
-        aboutContainer.append(articleDescription)
+        articleDescription.innerText = element.description;
+        articleDescription.classList.add("article-description");
+        aboutContainer.append(articleDescription);
 
         const articleImage = document.createElement("img");
-        articleImage.setAttribute("src", element.imageUrl)
-        articleImage.classList.add("article-image")
-        gameContainer.append(articleImage)
+        articleImage.setAttribute("src", element.imageUrl);
+        articleImage.classList.add("article-image");
+        gameContainer.append(articleImage);
 
-        gameContainer.append(aboutContainer)
+        gameContainer.append(aboutContainer);
 
-        allGanes.append(gameContainer)
+        allGanes.append(gameContainer);
 
         gameContainer.addEventListener("click", function(){
-            getGameDetails(data, index)
-        })
+            getGameDetails(data, index);
+        });
 
         allGanes.classList.remove("hide");
         preloader.classList.add("hide");
@@ -85,43 +85,43 @@ function drawChosenOption(selected) {
     const chosenGame = document.createElement("div");
 
     const chosenGameTitle = document.createElement('h1');
-    chosenGameTitle.innerText= selected.title
-    chosenGame.append(chosenGameTitle)
+    chosenGameTitle.innerText= selected.title;
+    chosenGame.append(chosenGameTitle);
 
     const chosenGameReleaseDate = document.createElement('p');
-    let date = new Date((selected.releaseDate)*1000)
-    chosenGameReleaseDate.innerHTML =`<b>Release date: </b> <small>${date}</small>`
-    chosenGame.append(chosenGameReleaseDate)
+    let date = new Date((selected.releaseDate)*1000);
+    chosenGameReleaseDate.innerHTML =`<b>Release date: </b> <small>${date}</small>`;
+    chosenGame.append(chosenGameReleaseDate);
 
     const chosenGameGenre = document.createElement('p');
-    chosenGameGenre.innerHTML =`<b>Genre: </b> ${selected.genre}`
-    chosenGame.append(chosenGameGenre)
+    chosenGameGenre.innerHTML =`<b>Genre: </b> ${selected.genre}`;
+    chosenGame.append(chosenGameGenre);
     
     const chosenGamePublisher = document.createElement('p');
-    chosenGamePublisher.innerHTML =`<b>Publisher: </b> ${selected.publisher}`
-    chosenGame.append(chosenGamePublisher)
+    chosenGamePublisher.innerHTML =`<b>Publisher: </b> ${selected.publisher}`;
+    chosenGame.append(chosenGamePublisher);
     
     const chosenGamePicture = document.createElement('img');
-    chosenGamePicture.setAttribute('src', selected.imageUrl)
-    chosenGame.append(chosenGamePicture)
+    chosenGamePicture.setAttribute('src', selected.imageUrl);
+    chosenGame.append(chosenGamePicture);
     
     const chosenGameDescription = document.createElement('p');
-    chosenGameDescription.classList.add("game-description")
-    chosenGameDescription.innerText = selected.description
-    chosenGame.append(chosenGameDescription)
+    chosenGameDescription.classList.add("game-description");
+    chosenGameDescription.innerText = selected.description;
+    chosenGame.append(chosenGameDescription);
 
-    const deleteButton = document.createElement("button")
-    deleteButton.innerText = "Delete"
-    deleteButton.setAttribute("data-remove", selected._id)
-    chosenGame.append(deleteButton)
-    deleteButton.addEventListener("click", removeItem)
+    const deleteButton = document.createElement("button");
+    deleteButton.innerText = "Delete";
+    deleteButton.setAttribute("data-remove", selected._id);
+    chosenGame.append(deleteButton);
+    deleteButton.addEventListener("click", removeItem);
     
-    const updateLink = document.createElement("button")
-    updateLink.innerText = "Update"
-    chosenGame.append(updateLink)
-    updateLink.addEventListener("click", updateItem)
+    const updateLink = document.createElement("button");
+    updateLink.innerText = "Update";
+    chosenGame.append(updateLink);
+    updateLink.addEventListener("click", updateItem);
 
-    selectedGame.append(chosenGame)
+    selectedGame.append(chosenGame);
 
     preloader.classList.add("hide");
     selectedGame.classList.remove("hide");
@@ -138,24 +138,23 @@ function drawChosenOption(selected) {
         showTheForm(event);
         updateLink.classList.add("hide");   
         deleteButton.classList.add("hide");
-        postButton.classList.add("hide")
+        postButton.classList.add("hide");
         let updateButton = document.createElement("button");
         updateButton.innerText = "Update";
-        updateButton.setAttribute("data-update", selected._id)
+        updateButton.setAttribute("data-update", selected._id);
 
-        postForm.append(updateButton)
-        updateButton.addEventListener("click", putUpdate)
+        postForm.append(updateButton);
+        updateButton.addEventListener("click", putUpdate);
     }
 }
 
 function removeItem(event) {
-    console.log(event.target.dataset.remove);
-    let removableId = event.target.dataset.remove 
+    let removableId = event.target.dataset.remove; 
 
     fetch(url+removableId,{method:'DELETE'})
     .then(response => response.json())
     .then(res => console.log(res))
-    setTimeout(() => location.reload(),1000)
+    setTimeout(() => location.reload(),1000);
 }
 
 function postAnItem(event) {
@@ -177,9 +176,8 @@ function postAnItem(event) {
 }
 
 function putUpdate(event) {
-    event.preventDefault()
-    console.log(event.target.dataset.update);
-    let updateId = event.target.dataset.update 
+    event.preventDefault();
+    let updateId = event.target.dataset.update; 
 
     fetch(url + updateId, {
         method: 'PUT',
