@@ -43,7 +43,7 @@ function buildThePreview(data) {
         const aboutContainer = document.createElement("div");
         aboutContainer.classList.add("about-container");
 
-        const articleTitle = document.createElement("h2");
+        const articleTitle = document.createElement("h3");
         articleTitle.innerHTML = element.title;
         articleTitle.classList.add("article-title");
         aboutContainer.append(articleTitle);
@@ -57,6 +57,11 @@ function buildThePreview(data) {
         articleImage.setAttribute("src", element.imageUrl);
         articleImage.classList.add("article-image");
         gameContainer.append(articleImage);
+
+        const articleSeeMore = document.createElement("p");
+        articleSeeMore.innerText = "See More >>>";
+        articleSeeMore.classList.add("article-see-more");
+        aboutContainer.append(articleSeeMore);
 
         gameContainer.append(aboutContainer);
 

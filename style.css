@@ -20,7 +20,8 @@ body {
 
 .game-container {
     overflow: hidden;
-    max-width: 50%;
+    width: 450px;
+    height: 230px;
     margin: 20px auto 20px auto;
     padding:20px;
     border-radius: 15px;
@@ -30,15 +31,26 @@ body {
     cursor: pointer;
 }
 
+.article-description {
+    display: -webkit-box;
+    overflow : hidden;
+    text-overflow: ellipsis;
+    -webkit-line-clamp: 5;
+    -webkit-box-orient: vertical;  
+  }
+
 .article-image {
     max-height: 200px;
+    max-width: 200px;
+    height: 100%;
+    vertical-align: middle;
     margin: 10px;
     float: left;
     vertical-align: middle;
 }
 
-.article-description {
-    /* display: inline; */
+.article-see-more {
+    float: right;
 }
 
 .about-container {
@@ -57,4 +69,9 @@ body {
 .postingInput input {
     width: 350px;
     height: 20px;
+}
+
+#game-collection {
+    display: flex;
+    flex-wrap: wrap;
 }
