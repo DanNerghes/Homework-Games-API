@@ -1,5 +1,7 @@
 const url = "https://games-world.herokuapp.com/games/";
+const allGamesContainer = document.getElementById("games-container");
 const allGanes = document.getElementById('game-collection');
+const detailedSelected = document.getElementById('detailed-selected');
 const selectedGame = document.getElementById('selected-game');
 const preloader = document.getElementById('preloader');
 const postLink = document.getElementById("postLink");
@@ -18,14 +20,14 @@ postButton.addEventListener("click", postAnItem);
 
 function showTheForm(event){
     event.preventDefault();
-    allGanes.classList.add("hide");
-    selectedGame.classList.add("hide");
+    allGamesContainer.classList.add("hide");
+    detailedSelected.classList.add("hide");
     postForm.classList.remove("hide");
 }
 
 function getAllGames() {
     preloader.classList.remove("hide");
-    allGanes.classList.add("hide");
+    allGamesContainer.classList.add("hide");
     postForm.classList.add("hide");
     selectedGame.innerHTML = "";
 
@@ -70,15 +72,15 @@ function buildThePreview(data) {
         gameContainer.addEventListener("click", function(){
             getGameDetails(data, index);
         });
-
-        allGanes.classList.remove("hide");
+        
+        allGamesContainer.classList.remove("hide");
         preloader.classList.add("hide");
     });
 }
 
 function getGameDetails(arrData, i) {
     allGanes.innerHTML = "";
-    selectedGame.classList.add("hide");
+    detailedSelected.classList.add("hide");
     preloader.classList.remove("hide");
 
     fetch(url + arrData[i]._id)
@@ -88,49 +90,58 @@ function getGameDetails(arrData, i) {
 
 function drawChosenOption(selected) {
     const chosenGame = document.createElement("div");
+    chosenGame.classList.add("row");
+
+    const chosenGamePicture = document.createElement('img');
+    chosenGamePicture.classList.add("col-5");
+    chosenGamePicture.setAttribute('src', selected.imageUrl);
+    chosenGame.append(chosenGamePicture);
+
+    const datailedSection = document.createElement("div");
+    datailedSection.classList.add("col-7");
 
     const chosenGameTitle = document.createElement('h1');
     chosenGameTitle.innerText= selected.title;
-    chosenGame.append(chosenGameTitle);
+    datailedSection.append(chosenGameTitle);
 
     const chosenGameReleaseDate = document.createElement('p');
     let date = new Date((selected.releaseDate)*1000);
     chosenGameReleaseDate.innerHTML =`<b>Release date: </b> <small>${date}</small>`;
-    chosenGame.append(chosenGameReleaseDate);
+    datailedSection.append(chosenGameReleaseDate);
 
     const chosenGameGenre = document.createElement('p');
     chosenGameGenre.innerHTML =`<b>Genre: </b> ${selected.genre}`;
-    chosenGame.append(chosenGameGenre);
+    datailedSection.append(chosenGameGenre);
     
     const chosenGamePublisher = document.createElement('p');
     chosenGamePublisher.innerHTML =`<b>Publisher: </b> ${selected.publisher}`;
-    chosenGame.append(chosenGamePublisher);
-    
-    const chosenGamePicture = document.createElement('img');
-    chosenGamePicture.setAttribute('src', selected.imageUrl);
-    chosenGame.append(chosenGamePicture);
+    datailedSection.append(chosenGamePublisher);
     
     const chosenGameDescription = document.createElement('p');
-    chosenGameDescription.classList.add("game-description");
     chosenGameDescription.innerText = selected.description;
-    chosenGame.append(chosenGameDescription);
+    datailedSection.append(chosenGameDescription);
+    
+    chosenGame.append(datailedSection);
 
     const deleteButton = document.createElement("button");
+    deleteButton.classList.add("btn", "btn-danger","btn-block", "m-4");
     deleteButton.innerText = "Delete";
     deleteButton.setAttribute("data-remove", selected._id);
     chosenGame.append(deleteButton);
     deleteButton.addEventListener("click", removeItem);
     
     const updateLink = document.createElement("button");
+    updateLink.classList.add("float-right", "btn", "btn-warning", "postButton");
     updateLink.innerText = "Edit";
-    chosenGame.append(updateLink);
-    updateLink.addEventListener("click", function() {
-        updateItem(selected, updateLink, deleteButton)
-    });
+    datailedSection.prepend(updateLink);
 
+    updateLink.addEventListener("click", function() {
+        updateItem(selected, updateLink, deleteButton);
+    });
+    
     selectedGame.append(chosenGame);
 
-    selectedGame.classList.remove("hide");
+    detailedSelected.classList.remove("hide");
     preloader.classList.add("hide");
 }
 
@@ -143,14 +154,18 @@ function updateItem(selected, updateLink, deleteButton) {
     publisherToPost.placeholder = selected.publisher;
     imageUrlToPost.placeholder = selected.imageUrl;
     descriptionToPost.placeholder = selected.description;
-    postTitle.classList.add("hide");
+    
     showTheForm(event);
+    
+    postTitle.classList.add("hide");
     updateLink.classList.add("hide");   
     deleteButton.classList.add("hide");
     postLink.classList.add("hide");
-    postButton.classList.add("hide");
+    postButton.style.display = "none";
+
     updateButton.innerText = "Update";
     updateButton.setAttribute("data-update", selected._id);
+    updateButton.classList.add("btn", "btn-warning", "btn-lg", "btn-block", "mt-3", "mb-5");
 
     postForm.append(updateButton);
     updateButton.addEventListener("click", putUpdate);
