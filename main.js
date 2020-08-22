@@ -93,12 +93,12 @@ function drawChosenOption(selected) {
     chosenGame.classList.add("row");
 
     const chosenGamePicture = document.createElement('img');
-    chosenGamePicture.classList.add("col-5");
+    chosenGamePicture.classList.add("col-lg-5", "col-md-10");
     chosenGamePicture.setAttribute('src', selected.imageUrl);
     chosenGame.append(chosenGamePicture);
 
     const datailedSection = document.createElement("div");
-    datailedSection.classList.add("col-7");
+    datailedSection.classList.add("col-lg-7");
 
     const chosenGameTitle = document.createElement('h1');
     chosenGameTitle.innerText= selected.title;
@@ -131,7 +131,7 @@ function drawChosenOption(selected) {
     deleteButton.addEventListener("click", removeItem);
     
     const updateLink = document.createElement("button");
-    updateLink.classList.add("float-right", "btn", "btn-warning", "postButton");
+    updateLink.classList.add("float-right", "btn", "btn-warning", "postButton", "mt-2");
     updateLink.innerText = "Edit";
     datailedSection.prepend(updateLink);
 
@@ -149,11 +149,11 @@ function updateItem(selected, updateLink, deleteButton) {
     const postTitle = document.getElementById("postTitle");
     const updateButton = document.createElement("button");
 
-    titleToPost.placeholder = selected.title;
-    genreToPost.placeholder = selected.genre;
-    publisherToPost.placeholder = selected.publisher;
-    imageUrlToPost.placeholder = selected.imageUrl;
-    descriptionToPost.placeholder = selected.description;
+    titleToPost.value = selected.title;
+    genreToPost.value = selected.genre;
+    publisherToPost.value = selected.publisher;
+    imageUrlToPost.value = selected.imageUrl;
+    descriptionToPost.value = selected.description;
     
     showTheForm(event);
     
@@ -215,4 +215,3 @@ function putUpdate(event) {
     .then(response => response.json())
     .then(resp => console.log(resp))
 }
-
