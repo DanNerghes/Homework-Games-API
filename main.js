@@ -1,11 +1,12 @@
-const url = "https://games-world.herokuapp.com/games/";
+"use strict"
+
+const url = "https://games-app-siit.herokuapp.com/games/";
 const allGamesContainer = document.getElementById("games-container");
 const allGanes = document.getElementById('game-collection');
 const detailedSelected = document.getElementById('detailed-selected');
 const selectedGame = document.getElementById('selected-game');
 const preloader = document.getElementById('preloader');
 const postLink = document.getElementById("postLink");
-const postButton = document.getElementById("postButton");
 const postForm = document.getElementById("postForm");
 const titleToPost = document.getElementById("title");
 const genreToPost = document.getElementById("genre");
@@ -16,7 +17,7 @@ const descriptionToPost = document.getElementById("description");
 getAllGames();
 
 postLink.addEventListener("click", showTheForm);
-postButton.addEventListener("click", postAnItem);
+postForm.addEventListener("submit", postAnItem);
 
 function showTheForm(event){
     event.preventDefault();
@@ -131,7 +132,7 @@ function drawChosenOption(selected) {
     deleteButton.addEventListener("click", removeItem);
     
     const updateLink = document.createElement("button");
-    updateLink.classList.add("float-right", "btn", "btn-warning", "postButton", "mt-2");
+    updateLink.classList.add("float-right", "btn", "btn-warning", "mt-2");
     updateLink.innerText = "Edit";
     datailedSection.prepend(updateLink);
 
@@ -192,7 +193,10 @@ function postAnItem(event) {
             publisher : publisherToPost.value,
             imageUrl : imageUrlToPost.value,
             description : descriptionToPost.value
-        })
+        }),
+        headers:{
+            "Content-Type":"application/json"
+        }
     })
     .then(response => response.json())
     .then(resp => console.log(resp))
@@ -202,7 +206,7 @@ function putUpdate(event) {
     event.preventDefault();
     let updateId = event.target.dataset.update; 
 
-    fetch(url + updateId, {
+    fetch("https://games-app-siit.herokuapp.com/games/" + updateId, {
         method: 'PUT',
         body: JSON.stringify({
             title : titleToPost.value,
@@ -210,7 +214,10 @@ function putUpdate(event) {
             publisher : publisherToPost.value,
             imageUrl : imageUrlToPost.value,
             description : descriptionToPost.value
-        })
+        }),
+        headers:{
+            "Content-Type":"application/json"
+        }
     })
     .then(response => response.json())
     .then(resp => console.log(resp))
