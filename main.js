@@ -1,6 +1,7 @@
 "use strict"
 
 const url = "https://games-app-siit.herokuapp.com/games/";
+
 const allGamesContainer = document.getElementById("games-container");
 const allGanes = document.getElementById('game-collection');
 const detailedSelected = document.getElementById('detailed-selected');
@@ -8,6 +9,7 @@ const selectedGame = document.getElementById('selected-game');
 const preloader = document.getElementById('preloader');
 const postLink = document.getElementById("postLink");
 const postForm = document.getElementById("postForm");
+
 const titleToPost = document.getElementById("title");
 const genreToPost = document.getElementById("genre");
 const publisherToPost = document.getElementById("publisher");
@@ -34,21 +36,19 @@ function getAllGames() {
 
     fetch(url)
     .then(request => request.json())
-    .then(data => buildThePreview(data))
+    .then(data => drawPresentationPage(data))
 }
 
-function buildThePreview(data) {
+function drawPresentationPage(data) {
     data.forEach((element, index ) => {
         const gameContainer = document.createElement("article");
         gameContainer.setAttribute("id", element._id);
         gameContainer.classList.add("game-container");
 
         const aboutContainer = document.createElement("div");
-        aboutContainer.classList.add("about-container");
 
         const articleTitle = document.createElement("h3");
         articleTitle.innerHTML = element.title;
-        articleTitle.classList.add("article-title");
         aboutContainer.append(articleTitle);
         
         const articleDescription = document.createElement("p");
@@ -63,16 +63,14 @@ function buildThePreview(data) {
 
         const articleSeeMore = document.createElement("p");
         articleSeeMore.innerText = "See More >>>";
-        articleSeeMore.classList.add("article-see-more");
+        articleSeeMore.classList.add("float-right");
         aboutContainer.append(articleSeeMore);
 
         gameContainer.append(aboutContainer);
 
         allGanes.append(gameContainer);
 
-        gameContainer.addEventListener("click", function(){
-            getGameDetails(data, index);
-        });
+        gameContainer.addEventListener("click", () => getGameDetails(data, index));
         
         allGamesContainer.classList.remove("hide");
         preloader.classList.add("hide");
@@ -129,16 +127,15 @@ function drawChosenOption(selected) {
     deleteButton.innerText = "Delete";
     deleteButton.setAttribute("data-remove", selected._id);
     chosenGame.append(deleteButton);
-    deleteButton.addEventListener("click", removeItem);
+
+    deleteButton.addEventListener("click", removeTheGame);
     
     const updateLink = document.createElement("button");
     updateLink.classList.add("float-right", "btn", "btn-warning", "mt-2");
     updateLink.innerText = "Edit";
     datailedSection.prepend(updateLink);
 
-    updateLink.addEventListener("click", function() {
-        updateItem(selected, updateLink, deleteButton);
-    });
+    updateLink.addEventListener("click", () => setUpdateFields(selected, updateLink, deleteButton));
     
     selectedGame.append(chosenGame);
 
@@ -146,7 +143,7 @@ function drawChosenOption(selected) {
     preloader.classList.add("hide");
 }
 
-function updateItem(selected, updateLink, deleteButton) {
+function setUpdateFields(selected, updateLink, deleteButton) {
     const postTitle = document.getElementById("postTitle");
     const updateButton = document.createElement("button");
 
@@ -169,13 +166,14 @@ function updateItem(selected, updateLink, deleteButton) {
     updateButton.classList.add("btn", "btn-warning", "btn-lg", "btn-block", "mt-3", "mb-5");
 
     postForm.append(updateButton);
-    updateButton.addEventListener("click", putUpdate);
+    updateButton.addEventListener("click", updateTheGame);
 }
 
-function removeItem(event) {
+function removeTheGame(event) {
     let removableId = event.target.dataset.remove; 
 
-    fetch(url+removableId,{method:'DELETE'})
+    fetch(url+removableId, 
+        {method:'DELETE'})
     .then(response => response.json())
     .then(res => console.log(res))
     setTimeout(() => location.reload(),1000);
@@ -202,11 +200,11 @@ function postAnItem(event) {
     .then(resp => console.log(resp))
 }
 
-function putUpdate(event) {
+function updateTheGame(event) {
     event.preventDefault();
     let updateId = event.target.dataset.update; 
 
-    fetch("https://games-app-siit.herokuapp.com/games/" + updateId, {
+    fetch(url + updateId, {
         method: 'PUT',
         body: JSON.stringify({
             title : titleToPost.value,
